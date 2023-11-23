@@ -1,5 +1,8 @@
 # Path Provider
 
+## Pub dev
+https://pub.dev/packages/path_provider
+
 
 getApplicationDocumentsDirectory
 アプリケーションがそのアプリケーション専用のファイルを配置するディレクトリへのパス。アプリケーション自体が削除された場合にのみ消去されます。
@@ -9,3 +12,4 @@ getExternalStorageDirectory
 
 getTemporaryDirectory
 デバイスの一時ディレクトリへのパス。
+
