@@ -1,16 +1,11 @@
-# drift_sample
+# Path Provider
 
-A new Flutter project.
 
-## Getting Started
+getApplicationDocumentsDirectory
+アプリケーションがそのアプリケーション専用のファイルを配置するディレクトリへのパス。アプリケーション自体が削除された場合にのみ消去されます。
 
-This project is a starting point for a Flutter application.
+getExternalStorageDirectory
+アプリケーションが最上位ストレージにアクセスできるディレクトリへのパス。この機能は Android のみ利用可能なため、呼び出しの前に OS を判断する必要があります。
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+getTemporaryDirectory
+デバイスの一時ディレクトリへのパス。
