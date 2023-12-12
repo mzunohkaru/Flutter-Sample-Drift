@@ -1,6 +1,8 @@
 import 'package:drift_sample/src/drift/todos.dart';
 import 'package:drift_sample/widgets/snackbar_helper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SearchPage extends StatefulWidget {
   final MyDatabase database;
@@ -15,6 +17,7 @@ class _SearchPageState extends State<SearchPage> {
   final controllerDB = TextEditingController();
   final controllerSearch = TextEditingController();
   List<Todo> searchResults = [];
+  bool isSwitch = true;
 
   Future searchData() async {
     searchResults = await widget.database.searchTodo(controllerSearch.text);
@@ -56,11 +59,20 @@ class _SearchPageState extends State<SearchPage> {
                 return ListTile(
                   leading: Text(searchResults[index].id.toString()),
                   title: Text(searchResults[index].content),
+                  subtitle: Text(
+                    DateFormat('yyyy年M月d日h時m分s秒')
+                        .format(searchResults[index].limitDate),
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                  trailing: searchResults[index].isNotify
+                      ? const CircleAvatar(
+                          backgroundColor: Colors.red,
+                          radius: 3,
+                        )
+                      : const SizedBox(),
                   onTap: () async {
                     await widget.database.updateTodo(
-                      searchResults[index],
-                      controllerDB.text,
-                    );
+                        searchResults[index], controllerDB.text, isSwitch);
                     setState(() {
                       SnackBarHelper.show(context, '変更を完了しました');
                       controllerDB.clear();
@@ -86,13 +98,28 @@ class _SearchPageState extends State<SearchPage> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: controllerDB,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: CupertinoSwitch(
+                    value: isSwitch,
+                    onChanged: (value) {
+                      setState(() {
+                        isSwitch = value;
+                      });
+                    },
+                  ),
                 ),
-              ),
+                TextFormField(
+                  controller: controllerDB,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

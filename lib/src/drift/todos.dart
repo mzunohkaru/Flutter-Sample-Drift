@@ -14,6 +14,9 @@ class Todos extends Table {
   IntColumn get id => integer().autoIncrement()();
   // TextColumnでStringの値
   TextColumn get content => text()();
+  //DateTimeではなく,dateTimeであることに注意
+  DateTimeColumn get limitDate => dateTime()();
+  BoolColumn get isNotify => boolean().withDefault(const Constant(true))();
 }
 
 // データベースクラスの定義
@@ -46,18 +49,23 @@ class MyDatabase extends _$MyDatabase {
   }
 
   // データの追加
-  Future<int> addTodo(String content) {
+  Future<int> addTodo(String content, bool isSwitch) {
     // intoでデータを追加するテーブルを指定
     return into(todos)
         // insertでデータクラスであるTodosCompanionを追加
         .insert(
-            // TodosCompanionはデータの挿入や更新に有用なデータクラス
-            // このデータクラスを使うことにより、idを指定せずにデータを追加したい時など、一部のデータだけ追加することができます
-            TodosCompanion(content: Value(content)));
+      // TodosCompanionはデータの挿入や更新に有用なデータクラス
+      // このデータクラスを使うことにより、idを指定せずにデータを追加したい時など、一部のデータだけ追加することができます
+      TodosCompanion(
+        content: Value(content),
+        limitDate: Value(DateTime.now()),
+        isNotify: Value(isSwitch)
+      ),
+    );
   }
 
   // データ更新
-  Future<int> updateTodo(Todo todo, String content) {
+  Future<int> updateTodo(Todo todo, String content, bool isSwitch) {
     // update(todos)でテーブルを指定
     return (update(todos)
           // where以下で引数のTodo インスタンスとidが一致する物を探します
@@ -66,6 +74,8 @@ class MyDatabase extends _$MyDatabase {
         .write(
       TodosCompanion(
         content: Value(content),
+        limitDate: Value(DateTime.now()),
+        isNotify: Value(isSwitch)
       ),
     );
   }

@@ -3,9 +3,18 @@
 $ flutter pub run build_runner build
 
 
+# Drift
+・String
+・Bool
+・DateTime
+
+![Screenshot_1702353922](https://github.com/mzunohkaru/Flutter-Sample-Drift/assets/99012157/b46b68bd-cf29-49cc-99aa-a440d8b7d90f)
+
+![Screenshot_1702353930](https://github.com/mzunohkaru/Flutter-Sample-Drift/assets/99012157/bd373419-39c2-4d12-81b0-91de237e9016)
+
+
 # Path Provider
 
-Pub dev
 https://pub.dev/packages/path_provider
 
 
