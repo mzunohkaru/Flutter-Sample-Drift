@@ -37,6 +37,14 @@ class MyDatabase extends _$MyDatabase {
   Future<List<Todo>> get allTodoEntries =>
       select(todos).get(); // selectでテーブルを選択 // getでデータを取得
 
+  // データ検索
+  Future<List<Todo>> searchTodo(String query) {
+    return (select(todos)
+          // where以下で入力した文字がcontentに含まれているデータを探します
+          ..where((tbl) => tbl.content.like('%$query%')))
+        .get();
+  }
+
   // データの追加
   Future<int> addTodo(String content) {
     // intoでデータを追加するテーブルを指定

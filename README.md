@@ -1,6 +1,11 @@
+# コードの自動生成
+
+$ flutter pub run build_runner build
+
+
 # Path Provider
 
-## Pub dev
+Pub dev
 https://pub.dev/packages/path_provider
 
 
